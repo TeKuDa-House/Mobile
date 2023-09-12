@@ -1,0 +1,32 @@
+{
+  "cli": {
+    "version": ">= 5.2.0"
+  },
+  "build": {
+    "development": {
+        "developmentClient": true,
+        "distribution": "internal"
+    },
+    "preview": {
+        "distribution": "internal",
+        "ios": {
+            "simulator": true
+        },
+        "android": {
+            "buildType": "apk"
+        },
+        "env": {
+          "API_KEY": "your_api_key_here",
+          "ANOTHER_VARIABLE": "another_value_here"
+        }
+    },
+    "production": {
+        "android": {
+            "buildType": "apk"
+        }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
