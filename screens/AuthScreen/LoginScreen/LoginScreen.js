@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  ActivityIndicator, // Import ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import { CommonActions } from '@react-navigation/native'; // Importez CommonActions
+import { CommonActions } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 import Spinner from '../../../components/Spinner';
 
@@ -22,6 +23,7 @@ const LoginScreen = () => {
   const [formError, setFormError] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isStoringToken, setIsStoringToken] = useState(false); // New state for loading token storage
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -30,7 +32,6 @@ const LoginScreen = () => {
         setLoading(false);
 
         if (storedToken) {
-          // L'utilisateur est déjà authentifié, redirigez-le vers 'PrivatesRoutes'
           navigation.dispatch(
             CommonActions.reset({
               index: 0,
@@ -63,6 +64,7 @@ const LoginScreen = () => {
 
   async function storeAuthToken(token) {
     try {
+      setIsStoringToken(true); // Set loading state to true
       await SecureStore.setItemAsync('authToken', token);
       navigation.dispatch(
         CommonActions.reset({
@@ -74,6 +76,8 @@ const LoginScreen = () => {
       setFormError(
         `Une erreur s'est produite lors de la tentative de stockage du jeton d'authentification : ${error.message}`
       );
+    } finally {
+      setIsStoringToken(false); // Set loading state back to false
     }
   }
 
@@ -141,7 +145,11 @@ const LoginScreen = () => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-        <Text style={styles.buttonText}>Se connecter</Text>
+        {isStoringToken ? ( // Conditional rendering of ActivityIndicator
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.buttonText}>Se connecter</Text>
+        )}
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.secondaryButton}

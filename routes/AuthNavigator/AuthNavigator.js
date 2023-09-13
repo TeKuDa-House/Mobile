@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Text, View } from 'react-native';
 
 import LoginScreen from '../../screens/AuthScreen/LoginScreen/LoginScreen';
 import RegisterScreen from '../../screens/AuthScreen/RegisterScreen/RegisterScreen';
@@ -13,40 +13,36 @@ const AuthNavigator = () => {
     <Stack.Navigator
       initialRouteName="Login"
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63', // Couleur de l'icône active
         headerStyle: {
-          backgroundColor: '#333', // Couleur de fond du header
+          backgroundColor: '#2E8B57', // Green header background
         },
-        headerTintColor: 'white', // Couleur du texte du header
+        headerTintColor: 'white', // White header text color
         headerTitleStyle: {
-          fontWeight: 'bold', // Style du texte du header
+          fontWeight: 'bold', // Bold header text
         },
       }}>
       <Stack.Screen
         name="Login"
         component={LoginScreen}
         options={{
-          tabBarLabel: 'Connexion',
-          title: 'Connexion', // Titre du header
-          headerTitleAlign: 'center', // Alignement du titre au centre
+          title: 'Panneau De Connexion',
+          headerTitleAlign: 'center',
         }}
       />
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
         options={{
-          tabBarLabel: 'Inscription',
-          title: 'Inscription', // Titre du header
-          headerTitleAlign: 'center', // Alignement du titre au centre
+          title: `Panneau d'inscription`,
+          headerTitleAlign: 'center',
         }}
       />
       <Stack.Screen
         name="ResetPassword"
         component={ResetPasswordScreen}
         options={{
-          tabBarLabel: 'Réinitialiser le mot de passe',
-          title: 'Réinitialiser le mot de passe', // Titre du header
-          headerTitleAlign: 'center', // Alignement du titre au centre
+          title: 'Réinitialiser le mot de passe',
+          headerTitleAlign: 'center',
         }}
       />
     </Stack.Navigator>

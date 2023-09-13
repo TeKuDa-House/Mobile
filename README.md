@@ -1,11 +1,37 @@
-# Sample Snack app
+# TeKuDa - Votre Marché d'Occasion en Ligne
 
-Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by scanning the **QR code** or use the iOS or Android emulators. When you're done, click **Save** and share the link!
+![Logo de TeKuDa](lien_vers_logo.png)
 
-When you're ready to see everything that Expo provides (or if you want to use your own editor) you can **Download** your project and use it with [expo cli](https://docs.expo.dev/get-started/installation/#expo-cli)).
+TeKuDa est une application mobile conviviale qui simplifie l'achat et la vente d'objets d'occasion en ligne. Notre mission est de rendre le processus aussi facile que possible tout en favorisant la réutilisation et la réduction des déchets.
 
-All projects created in Snack are publicly available, so you can easily share the link to this project via link, or embed it on a web page with the `<>` button.
+## Fonctionnalités Principales
 
-If you're having problems, you can tweet to us [@expo](https://twitter.com/expo) or ask in our [forums](https://forums.expo.dev/c/expo-dev-tools/61) or [Discord](https://chat.expo.dev/).
+- **Explorez et Cherchez :** Parcourez une grande variété de catégories d'articles pour trouver exactement ce dont vous avez besoin.
 
-Snack is Open Source. You can find the code on the [GitHub repo](https://github.com/expo/snack).
+- **Annonces avec Photos :** Créez des annonces détaillées avec des photos pour présenter vos articles de la meilleure façon possible.
+
+- **Messagerie Intégrée :** Communiquez en toute sécurité avec les vendeurs et les acheteurs grâce à notre système de messagerie intégré.
+
+- **Gestion de Profil :** Personnalisez votre profil, suivez vos transactions et gérez vos annonces facilement.
+
+- **Notifications :** Restez à jour avec les nouvelles offres, les messages des acheteurs et l'état de vos annonces grâce aux notifications en temps réel.
+
+## Captures d'Écran
+
+![Capture d'écran 1](capture_ecran1.png)
+![Capture d'écran 2](capture_ecran2.png)
+![Capture d'écran 3](capture_ecran3.png)
+
+## Installation
+
+### Prérequis
+
+- [Node.js](https://nodejs.org/) doit être installé sur votre système
+- Vous aurez besoin de [npm](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/) pour gérer les dépendances
+
+### Étapes d'Installation
+
+1. Clonez ce dépôt sur votre ordinateur :
+
+   ```bash
+   git clone https://github.com/votre-utilisateur/teku-da.git
