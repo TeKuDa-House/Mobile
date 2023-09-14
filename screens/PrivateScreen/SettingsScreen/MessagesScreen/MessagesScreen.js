@@ -48,7 +48,6 @@ const MessagesScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Messages</Text>
       <FlatList
         data={messages}
         keyExtractor={(item) => item.id}
@@ -86,12 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#333',
   },
   messageItem: {
     flexDirection: 'row',

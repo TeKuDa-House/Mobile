@@ -19,8 +19,6 @@ const PushNotificationsScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Notifications Push</Text>
-
       <View style={styles.settingItem}>
         <Text style={styles.settingLabel}>Activer les notifications push</Text>
         <Switch
@@ -47,13 +45,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 16,
     backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#333',
-    textAlign: 'center',
   },
   settingItem: {
     flexDirection: 'row',

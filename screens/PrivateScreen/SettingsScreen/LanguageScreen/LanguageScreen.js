@@ -17,8 +17,6 @@ const LanguageScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Langue de l'Application</Text>
-
       <TouchableOpacity
         style={[
           styles.languageButton,
@@ -54,13 +52,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 16,
     backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#333',
-    textAlign: 'center',
   },
   languageButton: {
     backgroundColor: '#f7f7f7',

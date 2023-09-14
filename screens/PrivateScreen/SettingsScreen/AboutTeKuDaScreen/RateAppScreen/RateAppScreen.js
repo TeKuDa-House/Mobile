@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Dimensions,
+} from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const RateAppScreen = ({ navigation }) => {
   const [rating, setRating] = useState(0);
@@ -9,45 +19,48 @@ const RateAppScreen = ({ navigation }) => {
     setRating(value);
   };
 
- const handleRateApp = () => {
-  if (rating === 0) {
-    Alert.alert('Note requise', 'Veuillez sélectionner une note pour l\'application.');
-  } else if (rating >= 4) {
-    // L'utilisateur est redirigé vers la page de notation de l'App Store / Google Play s'il donne une note élevée
-    Alert.alert('Merci pour votre note !', 'Voulez-vous nous laisser un avis détaillé sur l\'App Store ou Google Play ?', [
-      {
-        text: 'Plus tard',
-        style: 'cancel',
-      },
-      {
-        text: 'Écrire un avis',
-        onPress: () => {
-          // Rediriger vers la page d'avis de l'App Store / Google Play
-          // Ajoutez ici le code de redirection vers la page d'avis de l'App Store / Google Play
-          // Par exemple, pour naviguer vers l'écran 'about' après une note élevée :
-          navigation.navigate('AboutTeKuDa');
-        },
-      },
-    ]);
-  } else {
-    // L'utilisateur a donné une note basse, peut-être voulez-vous lui demander des commentaires supplémentaires ici
-    Alert.alert('Nous sommes désolés de votre expérience.', 'Voulez-vous nous envoyer des commentaires détaillés ?', [
-      {
-        text: 'Non, merci',
-        style: 'cancel',
-      },
-      {
-        text: 'Envoyer des commentaires',
-        onPress: () => {
-          // Rediriger l'utilisateur vers un écran pour envoyer des commentaires
-          // Ajoutez ici le code de redirection vers l'écran de commentaires
-          navigation.navigate('AboutTeKuDa');
-        },
-      },
-    ]);
-  }
-};
-
+  const handleRateApp = () => {
+    if (rating === 0) {
+      Alert.alert(
+        'Note requise',
+        "Veuillez sélectionner une note pour l'application."
+      );
+    } else if (rating >= 4) {
+      Alert.alert(
+        'Merci pour votre note !',
+        "Voulez-vous nous laisser un avis détaillé sur l'App Store ou Google Play ?",
+        [
+          {
+            text: 'Plus tard',
+            style: 'cancel',
+          },
+          {
+            text: 'Écrire un avis',
+            onPress: () => {
+              navigation.navigate('AboutTeKuDa'); // Redirect to the review page
+            },
+          },
+        ]
+      );
+    } else {
+      Alert.alert(
+        'Nous sommes désolés de votre expérience.',
+        'Voulez-vous nous envoyer des commentaires détaillés ?',
+        [
+          {
+            text: 'Non, merci',
+            style: 'cancel',
+          },
+          {
+            text: 'Envoyer des commentaires',
+            onPress: () => {
+              navigation.navigate('AboutTeKuDa'); // Redirect to the feedback page
+            },
+          },
+        ]
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -62,7 +75,7 @@ const RateAppScreen = ({ navigation }) => {
               rating >= value && styles.selectedRating,
             ]}
             onPress={() => handleRating(value)}>
-            <Ionicons name="star" size={32} color="#FFD700" />
+            <Ionicons name="star" size={windowWidth / 10} color="#FFD700" />
           </TouchableOpacity>
         ))}
       </View>
@@ -78,37 +91,39 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: windowWidth * 0.1,
+    backgroundColor: '#fff',
   },
   title: {
-    fontSize: 24,
+    fontSize: windowWidth / 14,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: windowHeight * 0.02,
   },
   subtitle: {
-    fontSize: 18,
-    marginBottom: 16,
+    fontSize: windowWidth / 20,
+    marginBottom: windowHeight * 0.02,
   },
   ratingContainer: {
     flexDirection: 'row',
   },
   ratingButton: {
-    marginHorizontal: 5,
+    marginHorizontal: windowWidth * 0.02,
   },
   selectedRating: {
     backgroundColor: '#FFD700',
-    borderRadius: 16,
-    padding: 8,
+    borderRadius: windowWidth * 0.1,
+    padding: windowWidth * 0.03,
   },
   rateButton: {
     backgroundColor: '#007AFF',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 8,
-    marginTop: 20,
+    paddingHorizontal: windowWidth * 0.15,
+    paddingVertical: windowHeight * 0.02,
+    borderRadius: windowWidth * 0.05,
+    marginTop: windowHeight * 0.04,
   },
   rateButtonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: windowWidth / 20,
     fontWeight: 'bold',
   },
 });

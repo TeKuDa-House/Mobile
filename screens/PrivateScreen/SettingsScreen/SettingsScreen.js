@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   StyleSheet,
   Text,
@@ -98,6 +98,8 @@ const settingsData = [
   },
 ];
 
+const ITEM_HEIGHT = 60; // Remplacez par la hauteur de chaque élément dans la liste
+
 const SettingScreen = () => {
   const navigation = useNavigation();
 
@@ -124,8 +126,13 @@ const SettingScreen = () => {
         <FlatList
           data={settingsData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()} // Convertir l'ID en chaîne
           showsVerticalScrollIndicator={false}
+          getItemLayout={(data, index) => ({
+            length: ITEM_HEIGHT,
+            offset: ITEM_HEIGHT * index,
+            index,
+          })}
         />
       </ScrollView>
       <StatusBar style="auto" />
@@ -162,7 +169,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     color: '#333333',
-    marginLeft: 10, // Marge à gauche pour l'espace entre l'icône et le texte
+    marginLeft: 10,
   },
 });
 

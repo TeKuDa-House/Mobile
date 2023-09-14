@@ -4,9 +4,8 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 const PrivacyPolicyScreen = () => {
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Politique de Confidentialité</Text>
       <Text style={styles.subtitle}>
-        Dernière mise à jour : [Date de mise à jour]
+        Dernière mise à jour : [15 Septembre 2023]
       </Text>
 
       <Text style={styles.sectionTitle}>1. Collecte d'Informations</Text>
@@ -96,11 +95,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
   },
   subtitle: {
     fontSize: 16,

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  ActivityIndicator, // Import ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
@@ -23,14 +23,13 @@ const LoginScreen = () => {
   const [formError, setFormError] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isStoringToken, setIsStoringToken] = useState(false); // New state for loading token storage
+  const [isStoringToken, setIsStoringToken] = useState(false);
 
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
         const storedToken = await SecureStore.getItemAsync('authToken');
         setLoading(false);
-
         if (storedToken) {
           navigation.dispatch(
             CommonActions.reset({
@@ -62,9 +61,9 @@ const LoginScreen = () => {
     setPassword(text);
   };
 
-  async function storeAuthToken(token) {
+  const storeAuthToken = async (token) => {
     try {
-      setIsStoringToken(true); // Set loading state to true
+      setIsStoringToken(true);
       await SecureStore.setItemAsync('authToken', token);
       navigation.dispatch(
         CommonActions.reset({
@@ -77,9 +76,9 @@ const LoginScreen = () => {
         `Une erreur s'est produite lors de la tentative de stockage du jeton d'authentification : ${error.message}`
       );
     } finally {
-      setIsStoringToken(false); // Set loading state back to false
+      setIsStoringToken(false);
     }
-  }
+  };
 
   const handleSignIn = async () => {
     if (email.trim() === '' || password.trim() === '') {
@@ -95,10 +94,6 @@ const LoginScreen = () => {
     const authToken = 'votre-jeton-d-authentification';
     await storeAuthToken(authToken);
   };
-
-  if (loading) {
-    return <Spinner message="Chargement ..." />;
-  }
 
   return (
     <ScrollView
@@ -145,7 +140,7 @@ const LoginScreen = () => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-        {isStoringToken ? ( // Conditional rendering of ActivityIndicator
+        {isStoringToken ? (
           <ActivityIndicator color="#fff" />
         ) : (
           <Text style={styles.buttonText}>Se connecter</Text>
@@ -176,18 +171,18 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 28, // Augmentation de la taille du titre
+    fontSize: 28,
     marginBottom: 20,
-    color: '#2E8B57', // Couleur verte pour correspondre au thème
-    fontWeight: 'bold', // Texte en gras
+    color: '#2E8B57',
+    fontWeight: 'bold',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    borderBottomWidth: 2, // Utilisation d'une bordure inférieure pour le style
-    borderBottomColor: '#2E8B57', // Couleur verte pour la bordure inférieure
-    paddingVertical: 10, // Espacement vertical
+    borderBottomWidth: 2,
+    borderBottomColor: '#2E8B57',
+    paddingVertical: 10,
     marginBottom: 15,
   },
   invalidInputContainer: {
@@ -199,23 +194,23 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 18,
-    color: '#333', // Couleur du texte
+    color: '#333',
   },
   invalidInput: {
     color: 'red',
   },
   button: {
     backgroundColor: '#2E8B57',
-    padding: 15, // Augmentation de la taille du bouton
-    borderRadius: 25, // Bordure arrondie
+    padding: 15,
+    borderRadius: 25,
     width: '100%',
     alignItems: 'center',
-    marginTop: 20, // Augmentation de l'espacement supérieur
+    marginTop: 20,
   },
   buttonText: {
     color: '#fff',
     fontSize: 18,
-    fontWeight: 'bold', // Texte en gras
+    fontWeight: 'bold',
   },
   secondaryButton: {
     backgroundColor: 'black',
@@ -224,8 +219,8 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     marginTop: 10,
-    borderWidth: 1, // Bordure
-    borderColor: 'green', // Couleur verte pour la bordure
+    borderWidth: 1,
+    borderColor: 'green',
   },
   secondaryButtonText: {
     color: 'green',
@@ -235,7 +230,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: 16,
-    marginTop: 10, // Augmentation de l'espacement supérieur
+    marginTop: 10,
   },
   resetPasswordButton: {
     marginTop: 10,
@@ -247,8 +242,8 @@ const styles = StyleSheet.create({
   visibilityIcon: {
     position: 'absolute',
     right: 10,
-    top: '80%', // Positionner l'icône au milieu de la hauteur du champ
-    transform: [{ translateY: -10 }], // Ajustement pour centrer verticalement
+    top: '80%',
+    transform: [{ translateY: -10 }],
   },
 });
 

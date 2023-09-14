@@ -9,10 +9,20 @@ import {
   Modal,
   TextInput,
   Button,
+  Dimensions, // Import Dimensions
+  PixelRatio, // Import PixelRatio
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 const GestionAnnoncesScreen = () => {
+  const isPortrait = () => {
+    const { height, width } = Dimensions.get('window');
+    return height > width;
+  };
+
   const [annoncesActives, setAnnoncesActives] = useState([
     {
       id: '1',
@@ -57,7 +67,11 @@ const GestionAnnoncesScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={[
+        styles.container,
+        isPortrait() ? null : styles.landscapeContainer, // Apply landscape style
+      ]}>
       <Text style={styles.subtitle}>Annonces Actives</Text>
       {annoncesActives.length > 0 ? (
         <FlatList
@@ -130,6 +144,11 @@ const GestionAnnoncesScreen = () => {
             }
             multiline
           />
+          {/* Ajout du champ de chargement de photos */}
+          <TouchableOpacity style={styles.uploadButton}>
+            <Ionicons name="ios-cloud-upload" size={32} color="#007bff" />
+            <Text style={styles.uploadText}>Télécharger des photos</Text>
+          </TouchableOpacity>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={[styles.modalButton, styles.ajouterButton]}
@@ -154,6 +173,9 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
   },
+  landscapeContainer: {
+    flexDirection: 'row', // Landscape layout
+  },
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -168,6 +190,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 16,
     borderRadius: 8,
+    flex: 1, // Expand to fill available space in landscape mode
   },
   annonceTextContainer: {
     marginLeft: 16,
@@ -211,7 +234,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#333',
     marginBottom: 16,
-    fontSize: 16,
+    fontSize: PixelRatio.getFontScale() * 16, // Responsive font size
   },
   multilineInput: {
     minHeight: 100,
@@ -238,7 +261,17 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: PixelRatio.getFontScale() * 18, // Responsive font size
+  },
+  uploadButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  uploadText: {
+    color: '#007bff',
+    fontSize: PixelRatio.getFontScale() * 18, // Responsive font size
+    marginLeft: 8,
   },
 });
 

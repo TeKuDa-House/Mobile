@@ -26,8 +26,6 @@ const HistoryScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Historique des Activités</Text>
-
       {historique.length > 0 ? (
         <FlatList
           data={historique}
@@ -54,13 +52,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 16,
     backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#333',
-    textAlign: 'center',
   },
   activityItem: {
     backgroundColor: '#f7f7f7',

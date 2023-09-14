@@ -1,8 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Button, View } from 'react-native';
-import SettingsScreen from '../../screens/PrivateScreen/SettingsScreen/SettingsScreen';
 
+import SettingsScreen from '../../screens/PrivateScreen/SettingsScreen/SettingsScreen';
 import GestionAnnoncesScreen from '../../screens/PrivateScreen/SettingsScreen/GestionAnnoncesScreen/GestionAnnoncesScreen';
 import ProfileScreen from '../../screens/PrivateScreen/SettingsScreen/ProfileScreen/ProfileScreen';
 import FavoritesScreen from '../../screens/PrivateScreen/SettingsScreen/FavoritesScreen/FavoritesScreen';
@@ -23,10 +22,71 @@ import PrivacyPolicyScreen from '../../screens/PrivateScreen/SettingsScreen/Abou
 
 const SettingsStack = createStackNavigator();
 
+const screens = [
+  { name: 'Paramètres', component: SettingsScreen },
+  {
+    name: 'GestionAnnonces',
+    component: GestionAnnoncesScreen,
+    title: 'Gestion des Annonces',
+  },
+  { name: 'Profile', component: ProfileScreen, title: 'Mon profile' },
+  { name: 'Favorites', component: FavoritesScreen, title: 'Mes favoris' },
+  {
+    name: 'Notifications',
+    component: NotificationsScreen,
+    title: 'Mes notification',
+  },
+  { name: 'Messages', component: MessagesScreen },
+  {
+    name: 'History',
+    component: HistoryScreen,
+    title: 'Historique des Activités',
+  },
+  {
+    name: 'AccountSettings',
+    component: AccountSettingsScreen,
+    title: 'Parametre du compte',
+  },
+  { name: 'Language', component: LanguageScreen, title: 'Langue de l\'Application' },
+  {
+    name: 'PushNotifications',
+    component: PushNotificationsScreen,
+    title: 'Notification Push',
+  },
+  { name: 'Reviews', component: ReviewsScreen, title: 'Avis et Commentaires' },
+  {
+    name: 'TermsOfUse',
+    component: TermsOfUseScreen,
+    title: "Condition d'utilistion",
+  },
+  { name: 'AboutUs', component: AboutScreen, title: 'Qui sommes nous ?' },
+  { name: 'FAQ', component: FaqScreen, title: 'Foires Aux Questions' },
+  {
+    name: 'AboutTeKuDa',
+    component: AboutTeKuDaScreen,
+    title: 'À propos de TeKuDa',
+  },
+  {
+    name: 'ContactezNous',
+    component: ContactUsScreen,
+    title: 'Nous contactez',
+  },
+  {
+    name: 'PolitiqueDeConfidentialite',
+    component: PrivacyPolicyScreen,
+    title: 'Politique de confidentialité',
+  },
+  {
+    name: 'RateApp',
+    component: RateAppScreen,
+    title: "Notation de l'application",
+  },
+];
+
 function SettingsStackScreen() {
   return (
     <SettingsStack.Navigator
-      initialRouteName="Settings"
+      initialRouteName="Paramètres"
       screenOptions={({ navigation }) => ({
         headerStyle: {
           backgroundColor: '#2E8B57',
@@ -45,92 +105,14 @@ function SettingsStackScreen() {
           fontWeight: 'bold',
         },
       }}>
-      <SettingsStack.Screen
-        name="Paramètres"
-        component={SettingsScreen}
-        options={{ title: 'Paramètres' }}
-      />
-      <SettingsStack.Screen
-        name="GestionAnnonces"
-        component={GestionAnnoncesScreen}
-        options={{ title: 'Gestion des Annonces' }}
-      />
-      <SettingsStack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{ title: `Mon profile` }}
-      />
-      <SettingsStack.Screen
-        name="Favorites"
-        component={FavoritesScreen}
-        options={{ title: `Mes favoris` }}
-      />
-      <SettingsStack.Screen
-        name="Notifications"
-        component={NotificationsScreen}
-        options={{ title: `Mes notification` }}
-      />
-      <SettingsStack.Screen name="Messages" component={MessagesScreen} />
-      <SettingsStack.Screen
-        name="History"
-        component={HistoryScreen}
-        options={{ title: `Historique des Activités` }}
-      />
-      <SettingsStack.Screen
-        name="AccountSettings"
-        component={AccountSettingsScreen}
-        options={{ title: `Parametre du compte` }}
-      />
-      <SettingsStack.Screen
-        name="Language"
-        component={LanguageScreen}
-        options={{ title: `Parametre de langue` }}
-      />
-      <SettingsStack.Screen
-        name="PushNotifications"
-        component={PushNotificationsScreen}
-        options={{ title: `Notification Push` }}
-      />
-      <SettingsStack.Screen
-        name="Reviews"
-        component={ReviewsScreen}
-        options={{ title: `Avis et Commentaires` }}
-      />
-      <SettingsStack.Screen
-        name="TermsOfUse"
-        component={TermsOfUseScreen}
-        options={{ title: `Condition d'utilistion` }}
-      />
-      <SettingsStack.Screen
-        name="AboutUs"
-        component={AboutScreen}
-        options={{ title: `Qui sommes nous ?` }}
-      />
-      <SettingsStack.Screen
-        name="FAQ"
-        component={FaqScreen}
-        options={{ title: `Foires Aux Questions` }}
-      />
-      <SettingsStack.Screen
-        name="AboutTeKuDa"
-        component={AboutTeKuDaScreen}
-        options={{ title: `À propos de TeKuDa` }}
-      />
-      <SettingsStack.Screen
-        name="ContactezNous"
-        component={ContactUsScreen}
-        options={{ title: `Nous contactez` }}
-      />
-      <SettingsStack.Screen
-        name="PolitiqueDeConfidentialite"
-        component={PrivacyPolicyScreen}
-        options={{ title: `Nous contactez` }}
-      />
-      <SettingsStack.Screen
-        name="RateApp"
-        component={RateAppScreen}
-        options={{ title: `Nous contactez` }}
-      />
+      {screens.map((screen, index) => (
+        <SettingsStack.Screen
+          key={index}
+          name={screen.name}
+          component={screen.component}
+          options={{ title: screen.title || screen.name }}
+        />
+      ))}
     </SettingsStack.Navigator>
   );
 }

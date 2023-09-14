@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text, View } from 'react-native';
 
 import LoginScreen from '../../screens/AuthScreen/LoginScreen/LoginScreen';
 import RegisterScreen from '../../screens/AuthScreen/RegisterScreen/RegisterScreen';
@@ -14,11 +13,11 @@ const AuthNavigator = () => {
       initialRouteName="Login"
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#2E8B57', // Green header background
+          backgroundColor: '#2E8B57',
         },
-        headerTintColor: 'white', // White header text color
+        headerTintColor: 'white',
         headerTitleStyle: {
-          fontWeight: 'bold', // Bold header text
+          fontWeight: 'bold',
         },
       }}>
       <Stack.Screen

@@ -5,12 +5,15 @@ import {
   StyleSheet,
   TouchableOpacity,
   Linking,
+  Dimensions,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
+const windowWidth = Dimensions.get('window').width;
+
 const ContactUsScreen = () => {
-  const phoneNumber = '+1234567890'; // Replace with your phone number
-  const emailAddress = 'contact@example.com'; // Replace with your email address
+  const phoneNumber = '+22672000284'; // Replace with your phone number
+  const emailAddress = 'adama1mg@gmail.com'; // Replace with your email address
   const websiteUrl = 'https://www.example.com'; // Replace with your website URL
   const facebookUrl = 'https://www.facebook.com/example'; // Replace with your Facebook URL
   const twitterUrl = 'https://twitter.com/example'; // Replace with your Twitter URL
@@ -49,19 +52,19 @@ const ContactUsScreen = () => {
         <TouchableOpacity
           onPress={handlePhonePress}
           style={styles.contactOption}>
-          <FontAwesome name="phone" size={24} color="#007bff" />
+          <FontAwesome name="phone" size={windowWidth / 6} color="#007bff" />
           <Text style={styles.contactOptionText}>Call Us</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleEmailPress}
           style={styles.contactOption}>
-          <FontAwesome name="envelope" size={24} color="#007bff" />
+          <FontAwesome name="envelope" size={windowWidth / 6} color="#007bff" />
           <Text style={styles.contactOptionText}>Send Email</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleWebsitePress}
           style={styles.contactOption}>
-          <FontAwesome name="globe" size={24} color="#007bff" />
+          <FontAwesome name="globe" size={windowWidth / 6} color="#007bff" />
           <Text style={styles.contactOptionText}>Visit Website</Text>
         </TouchableOpacity>
       </View>
@@ -69,17 +72,21 @@ const ContactUsScreen = () => {
         <TouchableOpacity
           onPress={handleFacebookPress}
           style={styles.socialMediaLink}>
-          <FontAwesome name="facebook" size={32} color="#1877f2" />
+          <FontAwesome name="facebook" size={windowWidth / 4} color="#1877f2" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleTwitterPress}
           style={styles.socialMediaLink}>
-          <FontAwesome name="twitter" size={32} color="#1da1f2" />
+          <FontAwesome name="twitter" size={windowWidth / 4} color="#1da1f2" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleInstagramPress}
           style={styles.socialMediaLink}>
-          <FontAwesome name="instagram" size={32} color="#e4405f" />
+          <FontAwesome
+            name="instagram"
+            size={windowWidth / 4}
+            color="#e4405f"
+          />
         </TouchableOpacity>
       </View>
     </View>

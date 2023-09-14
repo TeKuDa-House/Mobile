@@ -3,13 +3,15 @@ import {
   View,
   Text,
   StyleSheet,
+  ScrollView,
   TouchableOpacity,
   Linking,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // Utilisez la bibliothèque d'icônes appropriée
+import * as Sharing from 'expo-sharing';
 
 const AboutTeKuDaScreen = ({ navigation }) => {
-  const appVersion = '1.0.1'; // Remplacez par la version réelle de votre application
+  const appVersion = '1.0.0';
   const appName = 'TeKuDa';
   const appAuthor = 'Adama NIADA';
   const appLicense = 'Licence propriétaire';
@@ -17,21 +19,16 @@ const AboutTeKuDaScreen = ({ navigation }) => {
 
   const handleShare = async () => {
     try {
-      const result = await Share.share({
-        message: `Découvrez ${appName} - une application mobile de vente d'objets d'occasion en ligne. Version ${appVersion}. Par ${appAuthor}.`,
-      });
+      const result = await Sharing.shareAsync(
+        `Découvrez ${appName} - une application mobile de vente d'objets d'occasion en ligne. Version ${appVersion}. Par ${appAuthor}.`
+      );
 
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // L'utilisateur a partagé l'application
-          console.log("L'application partagée avec succès");
-        } else {
-          // L'utilisateur a annulé le partage
-          console.log('Partage annulé');
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // L'utilisateur a fermé la boîte de partage
-        console.log('Partage fermé');
+      if (result.action === Sharing.sharedAction) {
+        // User shared the content
+        console.log("L'application partagée avec succès");
+      } else if (result.action === Sharing.dismissedAction) {
+        // User dismissed the sharing
+        console.log('Partage annulé');
       }
     } catch (error) {
       console.error(error.message);
@@ -62,7 +59,7 @@ const AboutTeKuDaScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>À propos de {appName}</Text>
       <Text style={styles.version}>Version : {appVersion}</Text>
       <Text style={styles.author}>Auteur : {appAuthor}</Text>
@@ -99,7 +96,7 @@ const AboutTeKuDaScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>Visitez le site Web</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -108,7 +105,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
-    marginBottom: 16,
+    marginBottom: 30,
   },
   title: {
     fontSize: 24,

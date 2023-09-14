@@ -7,15 +7,19 @@ import {
   Image,
   StyleSheet,
   Alert,
+  TextInput,
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ModalDropdown from 'react-native-modal-dropdown';
+import Modal from 'react-native-modal';
 import Spinner from '../../../components/Spinner';
 
 const HomeScreen = ({ navigation }) => {
   const [listings, setListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortBy, setSortBy] = useState('Tri par défaut');
+  const [isMessageModalVisible, setMessageModalVisible] = useState(false);
+  const [message, setMessage] = useState('');
 
   // Fonction pour trier les annonces en fonction de l'option sélectionnée
   const sortListings = (option) => {
@@ -47,8 +51,16 @@ const HomeScreen = ({ navigation }) => {
     Alert.alert('Ajouter aux Favoris', "L'article a été ajouté à vos favoris.");
   };
 
-  const handleMessagePress = () => {
-    Alert.alert('Envoyer un Message', 'Un message a été envoyé au vendeur.');
+  const showMessageModal = () => {
+    setMessageModalVisible(true);
+  };
+
+  const sendMessage = () => {
+    // Logique pour envoyer le message
+    // Vous pouvez utiliser la valeur de 'message' pour envoyer le message où vous le souhaitez
+    // Une fois le message envoyé, réinitialisez 'message' à une chaîne vide
+    setMessage('');
+    setMessageModalVisible(false);
   };
 
   useEffect(() => {
@@ -58,49 +70,59 @@ const HomeScreen = ({ navigation }) => {
           id: '1',
           title: 'Téléphone Samsung Galaxy S20',
           price: '196500',
-          image: 'https://via.placeholder.com/640x480.png/00aacc?text=ads_img1',
+          images: [
+            'https://via.placeholder.com/640x480.png/red?text=ads_img1_1',
+            'https://via.placeholder.com/640x480.png/00aacc?text=ads_img1_2',
+            'https://via.placeholder.com/640x480.png/green?text=ads_img1_3',
+            'https://via.placeholder.com/640x480.png/blue?text=ads_img1_4',
+            'https://via.placeholder.com/640x480.png/purple?text=ads_img1_5',
+          ],
+          description: 'Un téléphone Samsung Galaxy S20 en excellent état.',
+          quantity: 5,
         },
         {
           id: '2',
           title: 'Laptop Dell XPS 13',
           price: '400000',
-          image: 'https://via.placeholder.com/640x480.png/002200?text=ads_img2',
+          images: [
+            'https://via.placeholder.com/640x480.png/yellow?text=ads_img2_1',
+            'https://via.placeholder.com/640x480.png/002200?text=ads_img2_2',
+            'https://via.placeholder.com/640x480.png/gray?text=ads_img2_3',
+            'https://via.placeholder.com/640x480.png/orange?text=ads_img2_4',
+            'https://via.placeholder.com/640x480.png/pink?text=ads_img2_5',
+          ],
+          description:
+            'Un ordinateur portable Dell XPS 13 de dernière génération.',
+          quantity: 7,
         },
         {
           id: '3',
           title: 'Vélo de montagne Trek',
           price: '50000',
-          image: 'https://via.placeholder.com/640x480.png/00aacc?text=ads_img3',
+          images: [
+            'https://via.placeholder.com/640x480.png/red?text=ads_img3_1',
+            'https://via.placeholder.com/640x480.png/00aacc?text=ads_img3_2',
+            'https://via.placeholder.com/640x480.png/green?text=ads_img3_3',
+            'https://via.placeholder.com/640x480.png/blue?text=ads_img3_4',
+            'https://via.placeholder.com/640x480.png/purple?text=ads_img3_5',
+          ],
+          description:
+            'Un vélo de montagne Trek pour les aventures en plein air.',
+          quantity: 3,
         },
         {
           id: '4',
-          title: 'Vélo de montagne Trek',
-          price: '500000',
-          image: 'https://via.placeholder.com/640x480.png/yellow?text=ads_img3',
-        },
-        {
-          id: '5',
-          title: 'Vélo de montagne',
-          price: '100000',
-          image: 'https://via.placeholder.com/640x480.png/red?text=ads_img3',
-        },
-        {
-          id: '6',
-          title: 'Vélo de montagne',
-          price: '100000',
-          image: 'https://via.placeholder.com/640x480.png/red?text=ads_img3',
-        },
-        {
-          id: '7',
-          title: 'Vélo de montagne',
-          price: '100000',
-          image: 'https://via.placeholder.com/640x480.png/red?text=ads_img3',
-        },
-        {
-          id: '8',
-          title: 'Vélo de montagne',
-          price: '100000',
-          image: 'https://via.placeholder.com/640x480.png/red?text=ads_img3',
+          title: 'Casque Audio Bluetooth Sony',
+          price: '75000',
+          images: [
+            'https://via.placeholder.com/640x480.png/gray?text=ads_img4_1',
+            'https://via.placeholder.com/640x480.png/ff5500?text=ads_img4_2',
+            'https://via.placeholder.com/640x480.png/red?text=ads_img4_3',
+            'https://via.placeholder.com/640x480.png/yellow?text=ads_img4_4',
+            'https://via.placeholder.com/640x480.png/green?text=ads_img4_5',
+          ],
+          description: 'Un casque audio Bluetooth Sony de haute qualité.',
+          quantity: 10,
         },
       ];
 
@@ -113,10 +135,15 @@ const HomeScreen = ({ navigation }) => {
     <TouchableOpacity
       onPress={() => navigation.navigate('AdsDetails', { item })}
       style={styles.listingContainer}>
-      <Image source={{ uri: item.image }} style={styles.listingImage} />
+      {item.images && item.images.length > 0 && (
+        <Image source={{ uri: item.images[0] }} style={styles.listingImage} />
+      )}
       <View style={styles.listingInfo}>
         <Text style={styles.listingTitle}>{item.title}</Text>
         <Text style={styles.listingPrice}>{item.price} FCFA</Text>
+        <Text style={styles.listingQuantity}>
+          Quantité disponible : {item.quantity}
+        </Text>
         <View style={styles.actionButtons}>
           <FontAwesome5
             name="shopping-cart"
@@ -131,7 +158,7 @@ const HomeScreen = ({ navigation }) => {
           <FontAwesome5
             name="envelope"
             style={styles.actionIcon}
-            onPress={handleMessagePress}
+            onPress={showMessageModal}
           />
         </View>
       </View>
@@ -169,6 +196,26 @@ const HomeScreen = ({ navigation }) => {
           keyExtractor={(item) => item.id.toString()}
         />
       )}
+      <Modal isVisible={isMessageModalVisible}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Envoyer un Message</Text>
+          <TextInput
+            placeholder="Saisissez votre message..."
+            value={message}
+            onChangeText={(text) => setMessage(text)}
+            style={styles.messageInput}
+            multiline
+          />
+          <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+            <Text style={styles.sendButtonText}>Envoyer</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => setMessageModalVisible(false)}>
+            <Text style={styles.closeButtonText}>Fermer</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -211,11 +258,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 12,
-    elevation: 2,
+    elevation: 4,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
-    shadowRadius: 2,
+    shadowRadius: 4,
   },
   listingImage: {
     width: 100,
@@ -229,10 +276,11 @@ const styles = StyleSheet.create({
   listingTitle: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#333',
   },
   listingPrice: {
     fontSize: 16,
-    color: '#333',
+    color: '#007AFF',
   },
   actionButtons: {
     flexDirection: 'row',
@@ -240,8 +288,52 @@ const styles = StyleSheet.create({
   },
   actionIcon: {
     fontSize: 24,
-    color: '#007AFF',
+    color: '#333',
     marginRight: 12,
+  },
+  listingQuantity: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 8,
+  },
+  modalContainer: {
+    backgroundColor: 'white',
+    padding: 16,
+    borderRadius: 8,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  messageInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 8,
+    marginBottom: 16,
+    height: 100,
+  },
+  sendButton: {
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    padding: 12,
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  sendButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  closeButton: {
+    backgroundColor: 'red',
+    borderRadius: 8,
+    padding: 12,
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
 

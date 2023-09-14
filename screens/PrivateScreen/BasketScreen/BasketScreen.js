@@ -37,9 +37,8 @@ const BasketScreen = () => {
     }, 5000);
   }, []);
 
-  const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.price, 0);
-  };
+  const calculateTotal = () =>
+    cartItems.reduce((total, item) => total + item.price, 0);
 
   const removeItem = (itemId) => {
     Alert.alert(
@@ -64,9 +63,7 @@ const BasketScreen = () => {
     );
   };
 
-  const handleCheckout = () => {
-    setIsModalVisible(true);
-  };
+  const handleCheckout = () => setIsModalVisible(true);
 
   const handleConfirmPayment = () => {
     // Ajoutez ici la logique pour valider le paiement avec le numéro de téléphone et le code OTP
@@ -77,9 +74,7 @@ const BasketScreen = () => {
     Alert.alert('Paiement confirmé', 'Produits payés avec succès.');
   };
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-  };
+  const handleCloseModal = () => setIsModalVisible(false);
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
@@ -252,19 +247,19 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   instructionText: {
-    fontSize: 16, // Taille de la police
-    fontWeight: 'bold', // Texte en gras
-    marginBottom: 10, // Espacement inférieur pour séparer du champ de saisie
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   closeButton: {
-    backgroundColor: 'red', // Couleur de fond du bouton
+    backgroundColor: 'red',
     padding: 16,
     borderRadius: 8,
     marginTop: 16,
     alignItems: 'center',
   },
   closeButtonText: {
-    color: 'white', // Couleur du texte du bouton
+    color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
   },

@@ -28,8 +28,6 @@ const ReviewsScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Avis des Utilisateurs</Text>
-
       {reviews.length > 0 ? (
         <FlatList
           data={reviews}
@@ -57,13 +55,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 16,
     backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#333',
-    textAlign: 'center',
   },
   reviewItem: {
     backgroundColor: '#f7f7f7',

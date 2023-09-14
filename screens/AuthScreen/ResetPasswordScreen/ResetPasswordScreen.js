@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   StyleSheet,
+  Dimensions,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -25,6 +26,9 @@ const Strings = {
   // ...
 };
 
+const { width } = Dimensions.get('window');
+const isSmallScreen = width < 360;
+
 const ResetPasswordScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
@@ -35,7 +39,12 @@ const ResetPasswordScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView
+      style={[
+        styles.container,
+        isSmallScreen && styles.smallScreenContainer, // Utilisation du style réactif
+      ]}
+      behavior="padding">
       <Text style={styles.title}>{Strings.title}</Text>
       {formError && <Text style={styles.errorText}>{formError}</Text>}
 
@@ -68,6 +77,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     padding: 20,
   },
+  smallScreenContainer: {
+    padding: 10, // Réduit le rembourrage pour les petits écrans
+  },
   title: {
     fontSize: 28,
     marginBottom: 20,
@@ -75,7 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
-    width: '100%',
+    width: '90%',
     borderBottomWidth: 2,
     borderBottomColor: Colors.green,
     fontSize: 18,

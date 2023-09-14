@@ -4,8 +4,6 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 const TermsOfUseScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Conditions d'Utilisation</Text>
-
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>1. Acceptation des Conditions</Text>
         <Text style={styles.paragraph}>
@@ -62,13 +60,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 16,
     backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 24, // Espacement supplémentaire après le titre
-    color: '#333',
-    textAlign: 'center', // Centrer le texte
   },
   section: {
     marginBottom: 32, // Espacement supplémentaire entre les sections

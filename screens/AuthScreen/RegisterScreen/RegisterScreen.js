@@ -7,51 +7,59 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Vous pouvez remplacer 'FontAwesome' par la bibliothèque d'icônes de votre choix.
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import * as SecureStore from 'expo-secure-store';
+
+const Colors = {
+  white: '#fff',
+  green: '#2E8B57',
+  black: '#333',
+  gray: '#ccc',
+  red: 'red',
+};
+
+const Strings = {
+  title: 'Inscription',
+};
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(true);
   const [formError, setFormError] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const validateEmail = (text) => {
-    // Implémentez votre logique de validation de l'e-mail ici
-    // Par exemple, vérifiez s'il s'agit d'une adresse e-mail valide
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     setIsValidEmail(emailPattern.test(text));
     setEmail(text);
   };
 
   const validatePassword = (text) => {
-    // Implémentez votre logique de validation du mot de passe ici
-    // Par exemple, vérifiez s'il répond à certaines critères
-    setIsValidPassword(text.length >= 8); // Exemple de validation : au moins 8 caractères
+    setIsValidPassword(text.length >= 8);
     setPassword(text);
   };
 
-  const storeAuthToken = async () => {
-    try {
-      const authToken = await SecureStore.getItemAsync('authToken');
-      // Utiliser le jeton récupéré
-    } catch (error) {
-      // Gérer l'erreur
-      setFormError('Erreur lors de la récupération du jeton :', error);
-    }
+  const validateConfirmPassword = (text) => {
+    setIsValidConfirmPassword(text === password);
+    setConfirmPassword(text);
   };
 
   const handleSignUp = () => {
-    if (email.trim() === '' || password.trim() === '') {
+    if (
+      email.trim() === '' ||
+      password.trim() === '' ||
+      confirmPassword.trim() === ''
+    ) {
       setFormError('Tous les champs sont obligatoires.');
       return;
     }
 
-    if (!isValidEmail || !isValidPassword) {
+    if (!isValidEmail || !isValidPassword || !isValidConfirmPassword) {
       setFormError('Veuillez corriger les champs invalides.');
       return;
     }
@@ -64,7 +72,7 @@ const RegisterScreen = () => {
     <ScrollView
       contentContainerStyle={styles.container}
       keyboardShouldPersistTaps="handled">
-      <Text style={styles.title}>Inscription</Text>
+      <Text style={styles.title}>{Strings.title}</Text>
       {formError && <Text style={styles.errorText}>{formError}</Text>}
       <View
         style={[
@@ -104,6 +112,20 @@ const RegisterScreen = () => {
           />
         </TouchableOpacity>
       </View>
+      <View
+        style={[
+          styles.inputContainer,
+          !isValidConfirmPassword && styles.invalidInputContainer,
+        ]}>
+        <Icon name="lock" size={20} color="#2E8B57" style={styles.icon} />
+        <TextInput
+          style={[styles.input, !isValidConfirmPassword && styles.invalidInput]}
+          placeholder="Confirmez le mot de passe"
+          onChangeText={(text) => validateConfirmPassword(text)}
+          value={confirmPassword}
+          secureTextEntry={!passwordVisible}
+        />
+      </View>
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>S'inscrire</Text>
       </TouchableOpacity>
@@ -121,22 +143,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     padding: 20,
   },
   title: {
-    fontSize: 28, // Augmentation de la taille du titre
+    fontSize: 28,
     marginBottom: 20,
-    color: '#2E8B57', // Couleur verte pour correspondre au thème
-    fontWeight: 'bold', // Texte en gras
+    color: Colors.green,
+    fontWeight: 'bold',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    borderBottomWidth: 2, // Utilisation d'une bordure inférieure pour le style
-    borderBottomColor: '#2E8B57', // Couleur verte pour la bordure inférieure
-    paddingVertical: 10, // Espacement vertical
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.green,
+    paddingVertical: 10,
     marginBottom: 15,
   },
   invalidInputContainer: {
@@ -148,49 +170,49 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 18,
-    color: '#333', // Couleur du texte
+    color: Colors.black,
   },
   invalidInput: {
     color: 'red',
   },
   button: {
-    backgroundColor: '#2E8B57',
-    padding: 15, // Augmentation de la taille du bouton
-    borderRadius: 25, // Bordure arrondie
+    backgroundColor: Colors.green,
+    padding: 15,
+    borderRadius: 25,
     width: '100%',
     alignItems: 'center',
-    marginTop: 20, // Augmentation de l'espacement supérieur
+    marginTop: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 18,
-    fontWeight: 'bold', // Texte en gras
+    fontWeight: 'bold',
   },
   secondaryButton: {
-    backgroundColor: 'transparent', // Fond transparent
+    backgroundColor: 'transparent',
     padding: 15,
     borderRadius: 25,
     width: '100%',
     alignItems: 'center',
     marginTop: 10,
-    borderWidth: 1, // Bordure
-    borderColor: '#2E8B57', // Couleur verte pour la bordure
+    borderWidth: 1,
+    borderColor: Colors.green,
   },
   secondaryButtonText: {
-    color: '#2E8B57',
+    color: Colors.green,
     fontSize: 18,
     fontWeight: 'bold',
   },
   errorText: {
-    color: 'red',
+    color: Colors.red,
     fontSize: 16,
-    marginTop: 10, // Augmentation de l'espacement supérieur
+    marginTop: 10,
   },
   visibilityIcon: {
     position: 'absolute',
     right: 10,
-    top: '80%', // Positionner l'icône au milieu de la hauteur du champ
-    transform: [{ translateY: -10 }], // Ajustement pour centrer verticalement
+    top: '80%',
+    transform: [{ translateY: -10 }],
   },
 });
 

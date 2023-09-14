@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
   FlatList,
+  Alert,
   TouchableOpacity,
 } from 'react-native';
 
 const FavoritesScreen = () => {
-  // Exemple de données d'éléments favoris de l'utilisateur
-  const favoris = [
+  // Example data of user's favorite items
+  const [favoris, setFavoris] = useState([
     {
       id: '1',
       titre: 'iPhone X à vendre',
@@ -21,12 +22,31 @@ const FavoritesScreen = () => {
       titre: 'Ordinateur portable HP neuf',
       description: "Vente d'un ordinateur portable HP neuf sous emballage.",
     },
-  ];
+    {
+      id: '3',
+      titre: 'Tablette Samsung Galaxy',
+      description: 'Tablette Android en parfait état, avec accessoires.',
+    },
+    {
+      id: '4',
+      titre: 'Console de jeux PS5',
+      description: 'PS5 en excellent état avec manette et jeux inclus.',
+    },
+    {
+      id: '5',
+      titre: 'Caméra Canon EOS 5D Mark IV',
+      description: 'Appareil photo professionnel en excellent état.',
+    },
+  ]);
+
+  // Function to remove a favorite item
+  const supprimerFavori = (id) => {
+    const newFavoris = favoris.filter((item) => item.id !== id);
+    setFavoris(newFavoris);
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Vos Favoris</Text>
-
       {favoris.length > 0 ? (
         <FlatList
           data={favoris}
@@ -35,10 +55,18 @@ const FavoritesScreen = () => {
             <TouchableOpacity
               style={styles.favoriteItem}
               onPress={() => {
-                // Ajoutez ici la navigation vers la page de détails de l'élément favori
+                Alert.alert(item.titre);
               }}>
               <Text style={styles.favoriteTitre}>{item.titre}</Text>
               <Text style={styles.favoriteDescription}>{item.description}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  // Call the function to remove the favorite item
+                  supprimerFavori(item.id);
+                }}
+                style={styles.deleteButton}>
+                <Text style={styles.deleteButtonText}>Supprimer</Text>
+              </TouchableOpacity>
             </TouchableOpacity>
           )}
         />
@@ -57,13 +85,6 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#333',
-    textAlign: 'center',
-  },
   favoriteItem: {
     backgroundColor: '#f7f7f7',
     padding: 16,
@@ -78,6 +99,16 @@ const styles = StyleSheet.create({
   favoriteDescription: {
     fontSize: 16,
     color: '#666',
+  },
+  deleteButton: {
+    backgroundColor: '#dc3545',
+    alignItems: 'center',
+    padding: 8,
+    borderRadius: 4,
+    marginTop: 8,
+  },
+  deleteButtonText: {
+    color: 'white',
   },
   emptyText: {
     fontSize: 16,
